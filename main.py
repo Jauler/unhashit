@@ -13,47 +13,32 @@
 # limitations under the License.
 
 import webapp2
+import webapp2_extras
 
+from handlers/digests_handler import DigestsHandler
+from handlers/values_handler import ValuesHandler
+from digesters/sha256 import SHA256Digester
+from digesters/sha512 import SHA512Digester
+from validators/sha256 import SHA256Validator
+from validators/sha512 import SHA512Validator
+from storages/google_cloud_storage_hash_storage import GoogleCloudStorageHashStorage
+from views/JSONView import JSONView
+from views/XMLView import XMLView
 
-class HomeHandler(webapp2.RequestHandler):
-    def get(self, **kwargs):
-        html = '<a href="%s">hello world</a>' % self.url_for('view', item='test')
-        self.response.out.write(html)
+config = {
+    "SHA256_digester" : SHA256Digester(),
+    "SHA256_storage" : GoogleCloudStorageHashStorage("SHA256_digests"),
+    "SHA256_validator" : SHA256Validator(),
 
+    "SHA512_digester" : SHA512Digester(),
+    "SHA512_storage" : GoogleCloudStorageHashStorage("SHA512_digests"),
+    "SHA512_validator" : SHA512Validator(),
+};
 
-class ViewHandler(webapp2.RequestHandler):
-    def get(self, **kwargs):
-        item = kwargs.get('item')
-        self.response.out.write('You are viewing item "%s".' % item)
-
-
-class HandlerWithError(webapp2.RequestHandler):
-    def get(self, **kwargs):
-        raise ValueError('Oops!')
-
-
-def get_redirect_url(handler, **kwargs):
-    return handler.url_for('view', item='i-came-from-a-redirect')
-
-
-app = webapp2.WSGIApplication([
-    # Home sweet home.
-    webapp2.Route('/', HomeHandler, name='home'),
-    # A route with a named variable.
-    webapp2.Route('/view/<item>', ViewHandler, name='view'),
-    # Loads a handler lazily.
-    webapp2.Route('/lazy', 'handlers.LazyHandler', name='lazy'),
-    # Redirects to a given path.
-    webapp2.Route(
-        '/redirect-me',
-        webapp2.RedirectHandler,
-        defaults={'url': '/lazy'}),
-    # Redirects to a URL using a callable to get the destination URL.
-    webapp2.Route(
-        '/redirect-me2',
-        webapp2.RedirectHandler,
-        defaults={'url': get_redirect_url}),
-    # No exception should pass. If exceptions are not handled, a 500 page is
-    # displayed.
-    webapp2.Route('/exception', HandlerWithError),
-])
+app = webapp2.WSGIApplication(
+    [
+        webapp2.Route('/HashReversing/JSON/<algorithm>/digest', DigestsHandler, defaults = {"view" : JSONView()}, name='digest'),
+        webapp2.Route('/HashReversing/JSON/<algorithm>/value', ValuesHandler, defaults = {"view" : JSONView()}, name='value'),
+        webapp2.Route('/HashReversing/XML/<algorithm>/digest', DigestsHandler, defaults = {"view" : XMLView()}, name='digest'),
+        webapp2.Route('/HashReversing/XML/<algorithm>/value', ValuesHandler, defaults = {"view" : XMLView()}, name='value'),
+    ], config=config)
