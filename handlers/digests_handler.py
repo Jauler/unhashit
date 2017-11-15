@@ -1,25 +1,29 @@
 
+import sys
 import webapp2
 
 
 class DigestsHandler(webapp2.RequestHandler):
 
     def get(self, **kwargs):
+        print(kwargs)
         viewer = kwargs["view"]
         try:
             algorithm = kwargs["algorithm"];
-            value = kwargs["value"]
+            value = self.request.get("value")
+            print(value)
             digester = self.app.config[algorithm + "_digester"]
             digest = digester.GetDigest(value)
 
-            storage = self.app.config[algorithm]["storage"]
+            storage = self.app.config[algorithm + "_storage"]
             storage.AddNewDigestValue(digest, value)
 
-            view = viewer.GetViewForDigest(digest)
+            code, view = viewer.GetViewForDigest(algorithm, value, digest)
 
         except:
-            error = sys.exc_info[0]
-            view = viewer.GetViewForError(error)
+            error = sys.exc_info()
+            code, view = viewer.GetViewForError(error)
 
+        self.response.set_status(code)
         self.response.out.write(view);
 

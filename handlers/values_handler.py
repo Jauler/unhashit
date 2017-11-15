@@ -4,9 +4,6 @@ import webapp2
 
 
 class ValuesHandler(webapp2.RequestHandler):
-    def setViewer(viewer)
-        self.viewer = viewer
-
     def get(self, **kwargs):
         viewer = kwargs["view"]
         try:
@@ -17,13 +14,15 @@ class ValuesHandler(webapp2.RequestHandler):
             storage = self.app.config["algorithm_" + algorithm]["storage"]
             value = storage.GetValueForDigest(digest)
 
-            view = viewer.GetViewForValue(value)
+            code, view = viewer.GetViewForValue(value)
 
         except:
-            error = sys.exc_info[0]
-            view = viewer.GetViewForError(error)
+            error = sys.exc_info()[0]
+            code, view = viewer.GetViewForError(error)
 
+        self.response.set_status(code)
         self.response.out.write(view);
+
 
     def put(self, **kwargs):
         try:
@@ -35,12 +34,14 @@ class ValuesHandler(webapp2.RequestHandler):
             storage = self.app.config[algorithm]["storage"]
             storage.AddNewDigestValue(digest, value)
 
-            view = viewer.GetSuccessView()
+            code, view = viewer.GetViewForSuccess()
 
         except:
-            error = sys.exc_info[0]
-            view = viewer.GetViewForError(error)
+            error = sys.exc_info()[0]
+            code, view = viewer.GetViewForError(error)
 
+        self.response.set_status(code)
         self.response.out.write(view);
+
 
 

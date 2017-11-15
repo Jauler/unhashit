@@ -2,14 +2,14 @@
 
 class XMLView:
 
-    def GetSuccessView():
-        return ""
+    def GetViewForSuccess(self):
+        return [200, ""]
 
-    def GetErrorView(error):
-        return ""
+    def GetViewForError(self, error):
+        return [200, ""]
 
-    def GetViewForValue(value):
-        return ""
+    def GetViewForValue(self, value):
+        return [200, ""]
 
-    def GetViewForDigest(digest):
-        return ""
+    def GetViewForDigest(self, digest):
+        return [200, ""]

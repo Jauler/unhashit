@@ -15,23 +15,23 @@
 import webapp2
 import webapp2_extras
 
-from handlers/digests_handler import DigestsHandler
-from handlers/values_handler import ValuesHandler
-from digesters/sha256 import SHA256Digester
-from digesters/sha512 import SHA512Digester
-from validators/sha256 import SHA256Validator
-from validators/sha512 import SHA512Validator
-from storages/google_cloud_storage_hash_storage import GoogleCloudStorageHashStorage
-from views/JSONView import JSONView
-from views/XMLView import XMLView
+from handlers.digests_handler import DigestsHandler
+from handlers.values_handler import ValuesHandler
+from digesters.sha256 import SHA256Digester
+from digesters.sha512 import SHA512Digester
+from validators.sha256 import SHA256Validator
+from validators.sha512 import SHA512Validator
+from storages.google_cloud_storage_hash_storage import GoogleCloudStorageHashStorage
+from views.JSON_view import JSONView
+from views.XML_view import XMLView
 
 config = {
     "SHA256_digester" : SHA256Digester(),
-    "SHA256_storage" : GoogleCloudStorageHashStorage("SHA256_digests"),
+    "SHA256_storage" : GoogleCloudStorageHashStorage("SHA256_digests", SHA256Validator()),
     "SHA256_validator" : SHA256Validator(),
 
     "SHA512_digester" : SHA512Digester(),
-    "SHA512_storage" : GoogleCloudStorageHashStorage("SHA512_digests"),
+    "SHA512_storage" : GoogleCloudStorageHashStorage("SHA512_digests", SHA512Validator()),
     "SHA512_validator" : SHA512Validator(),
 };
 
