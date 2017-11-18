@@ -8,16 +8,15 @@ class ValuesHandler(webapp2.RequestHandler):
         viewer = kwargs["view"]
         try:
             algorithm = kwargs["algorithm"];
-            validator = self.app.config["algorithm_" + algorithm]["validator"]
-            digest = kwargs["digest"]
+            digest = self.request.get("digest")
 
-            storage = self.app.config["algorithm_" + algorithm]["storage"]
+            storage = self.app.config[algorithm + "_storage"]
             value = storage.GetValueForDigest(digest)
 
-            code, view = viewer.GetViewForValue(value)
+            code, view = viewer.GetViewForValue(algorithm, digest, value)
 
         except:
-            error = sys.exc_info()[0]
+            error = sys.exc_info()
             code, view = viewer.GetViewForError(error)
 
         self.response.set_status(code)
@@ -27,17 +26,17 @@ class ValuesHandler(webapp2.RequestHandler):
     def put(self, **kwargs):
         try:
             algorithm = kwargs["algorithm"]
-            validator = self.app.config["algorithm_" + algorithm]["validator"]
-            digest = kwargs["digest"]
-            value = kwargs["value"]
+            storage = self.app.config[algorithm + "_storage"]
+            digest = self.request.get("digest")
+            value = self.request.get("value")
 
-            storage = self.app.config[algorithm]["storage"]
+            storage = self.app.config[algorithm + "_storage"]
             storage.AddNewDigestValue(digest, value)
 
             code, view = viewer.GetViewForSuccess()
 
         except:
-            error = sys.exc_info()[0]
+            error = sys.exc_info()
             code, view = viewer.GetViewForError(error)
 
         self.response.set_status(code)

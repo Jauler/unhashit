@@ -6,12 +6,10 @@ import webapp2
 class DigestsHandler(webapp2.RequestHandler):
 
     def get(self, **kwargs):
-        print(kwargs)
         viewer = kwargs["view"]
         try:
             algorithm = kwargs["algorithm"];
             value = self.request.get("value")
-            print(value)
             digester = self.app.config[algorithm + "_digester"]
             digest = digester.GetDigest(value)
 
