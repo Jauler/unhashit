@@ -3,6 +3,9 @@ import re
 
 class SHA256Validator:
 
+    def GetRequiredLength():
+        return 64
+
     def IsValid(self, digest):
         if len(digest) != 64:
             return False;
