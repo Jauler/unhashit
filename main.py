@@ -27,11 +27,11 @@ from views.XML_view import XMLView
 
 config = {
     "SHA256_digester" : SHA256Digester(),
-    "SHA256_storage" : GoogleCloudStorageHashStorage("SHA256_digests", SHA256Validator()),
+    "SHA256_storage" : GoogleCloudStorageHashStorage("sha256_digests", SHA256Validator()),
     "SHA256_validator" : SHA256Validator(),
 
     "SHA512_digester" : SHA512Digester(),
-    "SHA512_storage" : GoogleCloudStorageHashStorage("SHA512_digests", SHA512Validator()),
+    "SHA512_storage" : GoogleCloudStorageHashStorage("sha512_digests", SHA512Validator()),
     "SHA512_validator" : SHA512Validator(),
 };
 
