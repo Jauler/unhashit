@@ -26,8 +26,13 @@ class JSONView:
 
         return [code, json.encode(serializable_error)]
 
-    def GetViewForValue(self, value):
-        return [200, json.encode(value)]
+    def GetViewForValue(self, algo, digest, value):
+        serializable_value = {
+                "algorithm" : algo,
+                "value" : value,
+                "digest" : digest
+                }
+        return [200, json.encode(serializable_value)]
 
     def GetViewForDigest(self, algo, value, digest):
         serializable_digest = {
