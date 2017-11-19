@@ -7,9 +7,16 @@ libraries:
   version: latest
 
 handlers:
-- url: /(robots\.txt|favicon\.ico)
-  static_files: static/\1
-  upload: static/.*
-
-- url: /.*
+- url: /HashReversing/.*
   script: main.app
+
+- url: /
+  static_files: html/index.html
+  upload: html/index.html
+
+- url: /(.+)
+  static_files: html/\1
+  upload: html/.*
+
+
+
