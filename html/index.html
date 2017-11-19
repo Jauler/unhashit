@@ -15,9 +15,9 @@
 		<p>{{selected_digest_type}} hash: {{calculated_digest}}</p>
 		<br>
 
-		<div>Enter {{selected_digest_type}} digest: <input type="text" ng-model="digest_input" ng-change="update_value()"></div>
-		<p ng-show="!reversed_digest_error">Entered digest: {{reversed_digest}}</p>
-		<p ng-show="!reversed_digest_error">{{selected_digest_type}} hash: {{reversed_value}}</p>
+		<div>Enter {{selected_digest_type}} hash: <input type="text" ng-model="digest_input" ng-change="update_value()"></div>
+		<p ng-show="!reversed_digest_error">Entered {{selected_digest_type}} hash: {{reversed_digest}}</p>
+		<p ng-show="!reversed_digest_error">value: {{reversed_value}}</p>
 		<p ng-show="reversed_digest_error">Invalid digest</p>
 	</div>
 </body>
