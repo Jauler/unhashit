@@ -15,8 +15,7 @@ class JSONView:
     def GetViewForError(self, error):
         str_err_type = str(error[0])
         serializable_error = {
-                "type" : str_err_type,
-                "value" : str(error[1]),
+                "error" : str(error[1]),
                 }
 
         if error[0] in self.error_codes:
