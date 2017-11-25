@@ -1,57 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Hash Reversing</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<script src="app.js"></script>
+
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+</style>
+
+
 <body>
 
-	<div ng-app="HashReversing" ng-controller="HashReversingController">
-		<select ng-model="selected_digest_type" ng-init="selected_digest_type = supported_digest_types[0]" ng-options="x for x in supported_digest_types"></select>
+<div class="root" ng-app="HashReversing" ng-controller="HashReversingController">
 
-		<br>
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-theme-l1">Logo</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">About</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">News</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>
+  </div>
+</div>
 
-		<div>Enter any value: <input type="text" ng-model="value_input" ng-change="update_hash()"></div>
-		<p>Entered value: {{calculated_value}}</p>
-		<p>{{selected_digest_type}} hash: {{calculated_digest}}</p>
-		<br>
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+    <i class="fa fa-remove"></i>
+  </a>
+  <h4 class="w3-bar-item"><b>Hash types</b></h4>
+  <a class="w3-bar-item w3-button w3-hover-black" ng-repeat="item in menu_items" href="#!{{item}}">{{item}}</a>
+</nav>
 
-		<div>Enter {{selected_digest_type}} hash: <input type="text" ng-model="digest_input" ng-change="update_value()"></div>
-		<p ng-show="!reversed_digest_error">Entered {{selected_digest_type}} hash: {{reversed_digest}}</p>
-		<p ng-show="!reversed_digest_error">value: {{reversed_value}}</p>
-		<p ng-show="reversed_digest_error">Invalid digest</p>
-	</div>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-left:250px">
+  <div ng-view></div>
+
+  <div class="w3-bottom">
+  <footer id="myFooter">
+    <div class="w3-container w3-theme-l1">
+      <p>Powered by <a href="/" target="_blank">Rytis ir Tomas</a></p>
+    </div>
+  </footer>
+  </div>
+</div>
+
+</div>
+
 </body>
-
-<script>
-var app = angular.module('HashReversing', []);
-app.controller('HashReversingController', function($scope, $http, $timeout) {
-	$scope.supported_digest_types = ["SHA256", "SHA512"]
-	$scope.hash = "";
-	$scope.reversed_digest_error = false
-	$scope.update_hash = function() {
-		if (typeof $scope.update_delayer != "undefined")
-			$timeout.cancel($scope.update_delayer);
-
-		$scope.update_delayer = $timeout(function() {
-			$http.get("HashReversing/JSON/" + $scope.selected_digest_type + "/digest?value=" + $scope.value_input).then(function(response) {
-				$scope.calculated_value = response.data.value
-				$scope.calculated_digest = response.data.digest;
-			})}, 500);
-	}
-
-	$scope.update_value = function() {
-		if (typeof $scope.update_delayer != "undefined")
-			$timeout.cancel($scope.update_delayer);
-
-		$scope.update_delayer = $timeout(function() {
-			$http.get("HashReversing/JSON/" + $scope.selected_digest_type + "/value?digest=" + $scope.digest_input).then(function(response) {
-				$scope.reversed_value = ((response.data.value == null) ? "Unknown digest" : response.data.value);
-				$scope.reversed_digest = response.data.digest
-				$scope.reversed_digest_error = false;
-			}, function(response) {
-				$scope.reversed_digest_error = true;
-			})}, 500);
-	}
-});
-</script>
 </html>
