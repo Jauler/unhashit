@@ -16,6 +16,7 @@ class GoogleCloudStorageHashStorage:
             raise RuntimeError("Invalid digest")
 
         try:
+            digest = digest.lower()
             self.storage_lock.acquire()
             prefix = digest[0:4]
             bucket = self.storage_client.get_bucket(self.bucket_name)
@@ -28,7 +29,7 @@ class GoogleCloudStorageHashStorage:
 
             # search for value
             for stored_digest in stored_digests.digests:
-                if stored_digest.digest.lower() == digest.lower():
+                if stored_digest.digest.lower() == digest:
                     return stored_digest.value;
 
             return None
@@ -42,6 +43,7 @@ class GoogleCloudStorageHashStorage:
             raise RuntimeError("Invalid digest");
 
         try:
+            digest = digest.lower()
             self.storage_lock.acquire()
             prefix = digest[0:4]
             bucket = self.storage_client.get_bucket(self.bucket_name)
@@ -57,11 +59,11 @@ class GoogleCloudStorageHashStorage:
 
             # check for dublicate value
             for stored_digest in stored_digests.digests:
-                if stored_digest.digest.lower() == digest.lower():
+                if stored_digest.digest.lower() == digest:
                     return;
 
             stored_digest = stored_digests.digests.add()
-            stored_digest.digest = digest.lower()
+            stored_digest.digest = digest
             stored_digest.value = value;
 
             blob.upload_from_string(stored_digests.SerializeToString());
