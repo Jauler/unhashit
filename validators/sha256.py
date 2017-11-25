@@ -10,7 +10,7 @@ class SHA256Validator:
         if len(digest) != 64:
             return False;
 
-        if bool(re.compile(r'[^A-Za-z0-9]').search(digest)):
+        if bool(re.compile(r'[^A-Fa-f0-9]').search(digest)):
             return False;
 
         return True

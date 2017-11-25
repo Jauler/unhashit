@@ -11,7 +11,7 @@ class SHA512Validator:
         if len(digest) != 128:
             return False;
 
-        if bool(re.compile(r'[^A-Za-z0-9]').search(digest)):
+        if bool(re.compile(r'[^A-Fa-f0-9]').search(digest)):
             return False;
 
         return True
