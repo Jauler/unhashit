@@ -1,6 +1,6 @@
 
 var API_base = "HashReversing/JSON";
-var hash_types = ["SHA256", "SHA512"];
+var hash_types = ["MD5", "SHA256", "SHA512"];
 
 var app = angular.module('HashReversing', ["ngRoute"]);
 app.controller('HashReversingController', function($scope, $timeout, $http, $route) {
