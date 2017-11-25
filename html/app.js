@@ -111,6 +111,14 @@ app.config(function ($routeProvider) {
 		});
 	}
 
+	$routeProvider.when("/About", {
+		templateUrl : "About.html"
+	});
+
+	$routeProvider.when("/Contacts", {
+		templateUrl : "Contacts.html"
+	});
+
 	$routeProvider.otherwise({
 		template : "<p>Unknown page requested</p>"
 	});
