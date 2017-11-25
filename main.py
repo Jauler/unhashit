@@ -19,9 +19,11 @@ from handlers.digests_handler import DigestsHandler
 from handlers.values_handler import ValuesHandler
 from digesters.sha256 import SHA256Digester
 from digesters.sha512 import SHA512Digester
+from digesters.sha1 import SHA1Digester
 from digesters.md5 import MD5Digester
 from validators.sha256 import SHA256Validator
 from validators.sha512 import SHA512Validator
+from validators.sha1 import SHA1Validator
 from validators.md5 import MD5Validator
 from storages.google_cloud_storage_hash_storage import GoogleCloudStorageHashStorage
 from views.JSON_view import JSONView
@@ -39,6 +41,10 @@ config = {
     "MD5_digester" : MD5Digester(),
     "MD5_storage" : GoogleCloudStorageHashStorage("md5_digests", MD5Validator()),
     "MD5_validator" : MD5Validator(),
+
+    "SHA1_digester" : SHA1Digester(),
+    "SHA1_storage" : GoogleCloudStorageHashStorage("sha1_digests", SHA1Validator()),
+    "SHA1_validator" : SHA1Validator(),
 };
 
 app = webapp2.WSGIApplication(
