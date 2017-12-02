@@ -1,15 +1,16 @@
 
 var API_base = "HashReversing/JSON";
 var hash_types = ["MD5", "SHA1", "SHA256", "SHA512"];
+var info_pages = ["About", "API", "Contacts"];
 
 var app = angular.module('HashReversing', ["ngRoute"]);
 app.controller('HashReversingController', function($scope, $timeout, $http, $route) {
-	$scope.menu_items = hash_types;
+	$scope.hash_types = hash_types;
+	$scope.info_pages = info_pages
 	$scope.inputs = {};
 	$scope.inputs.hash_error = null;
 	$scope.inputs.value_error = null;
 	$scope.inputs.value_warning = null;
-
 
 	$scope.$on('$routeChangeStart', function($event, next, current) {
 		delete $scope.inputs.hash;
@@ -111,18 +112,18 @@ app.config(function ($routeProvider) {
 		});
 	}
 
-	$routeProvider.when("/About", {
-		templateUrl : "About.html"
-	});
-
-	$routeProvider.when("/Contacts", {
-		templateUrl : "Contacts.html"
-	});
+	for (var idx in info_pages)
+	{
+		requested_URL = "/" + info_pages[idx];
+		required_URL = requested_URL + ".html";
+		$routeProvider.when(requested_URL, {
+			templateUrl : required_URL
+		});
+	}
 
 	$routeProvider.otherwise({
 		template : "<p>Unknown page requested</p>"
 	});
-
 });
 
 

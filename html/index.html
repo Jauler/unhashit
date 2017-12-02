@@ -44,8 +44,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
     <a href="#" class="w3-bar-item w3-button w3-theme-l3"><img style="height:32px" class="w3-bar-item" src="logo.png"></a>
-    <a href="#!/About" class="w3-bar-item w3-button w3-hide-small w3-hover-white">About</a>
-    <a href="#!/Contacts" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contacts</a>
+   
+   	<a ng-repeat="item in info_pages" href="#!{{item}}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">{{item}}</a>
   </div>
 </div>
 
@@ -55,7 +55,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     <i class="fa fa-remove"></i>
   </a>
   <h4 class="w3-bar-item"><b>Hash types</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" ng-repeat="item in menu_items" href="#!{{item}}">{{item}}</a>
+  <a class="w3-bar-item w3-button w3-hover-black" ng-repeat="item in hash_types" href="#!{{item}}">{{item}}</a>
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
