@@ -16,13 +16,13 @@
 <h1 class="w3-text-teal">API</h1>
 
 <div class=w3-padding-16>
-<div class="w3-grey w3-block w3-left-align w3-padding-small"><b>GET:</b> http://unhashit.com/HashReversing/JSON/{algorithm}/digest?value={value}</div>
+<div class="w3-grey w3-block w3-left-align w3-padding-small"><b>GET:</b> https://unhashit.com/HashReversing/JSON/{algorithm}/digest?value={value}</div>
 <div class="w3-row w3-border">
 	<h5 class="w3-text-teal"><b>Description</b></h5>
 	<p>Returns hash value calculated with specified algorithm</p>
 
 	<h5 class="w3-text-teal"><b>URL</b></h5>
-	<p class="w3-code w3-padding-16">http://unhashit.com/HashReversing/JSON/{algoithm}/digest</p>
+	<p class="w3-code w3-padding-16">https://unhashit.com/HashReversing/JSON/{algoithm}/digest</p>
 
 	<h5 class="w3-text-teal"><b>Parameters</b></h5>
 	<ul>
@@ -35,7 +35,7 @@
 	</ul>
 
 	<h5 class="w3-text-teal"><b>Example curl request</b></h5>
-	<p class="w3-code w3-padding-16">curl "http://unhashit.com/HashReversing/JSON/MD5/digest?value=HelloWorld"</p>
+	<p class="w3-code w3-padding-16">curl "https://unhashit.com/HashReversing/JSON/MD5/digest?value=HelloWorld"</p>
 
 	<h5 class="w3-text-teal"><b>Example response</b></h5>
 	<p class="w3-code w3-padding-16">
@@ -49,13 +49,13 @@
 </div>
 
 <div class=w3-padding-16>
-<div class="w3-grey w3-block w3-left-align w3-padding-small"><b>GET:</b> http://unhashit.com/HashReversing/JSON/{algorithm}/value?digest={value}</div>
+<div class="w3-grey w3-block w3-left-align w3-padding-small"><b>GET:</b> https://unhashit.com/HashReversing/JSON/{algorithm}/value?digest={value}</div>
 <div class="w3-row w3-border">
 	<h5 class="w3-text-teal"><b>Description</b></h5>
 	<p>Returns a value which if passed to hash function will return specified hash value or NULL if value was not found</p>
 
 	<h5 class="w3-text-teal"><b>URL</b></h5>
-	<p class="w3-code w3-padding-16">http://unhashit.com/HashReversing/JSON/{algoithm}/value</p>
+	<p class="w3-code w3-padding-16">https://unhashit.com/HashReversing/JSON/{algoithm}/value</p>
 
 	<h5 class="w3-text-teal"><b>Parameters</b></h5>
 	<ul>
@@ -68,7 +68,7 @@
 	</ul>
 
 	<h5 class="w3-text-teal"><b>Example curl request</b></h5>
-	<p class="w3-code w3-padding-16">curl "http://unhashit.com/HashReversing/JSON/MD5/value?digest=68e109f0f40ca72a15e05cc22786f8e6"</p>
+	<p class="w3-code w3-padding-16">curl "https://unhashit.com/HashReversing/JSON/MD5/value?digest=68e109f0f40ca72a15e05cc22786f8e6"</p>
 
 	<h5 class="w3-text-teal"><b>Example response</b></h5>
 	<p class="w3-code w3-padding-16">

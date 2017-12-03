@@ -1,4 +1,4 @@
 # unhashit.com
 
-[unhashit](http://www.unhashit.com) is a small webpage designed to perform reverse hash lookup
+[unhashit](https://www.unhashit.com) is a small webpage designed to perform reverse hash lookup
 
