@@ -13,79 +13,70 @@
 </style>
 
 
-<div class="w3-row w3-padding-64">
-	<div class="w3-twothird w3-container">
-		<h1 class="w3-text-teal">API</h1>
+<h1 class="w3-text-teal">API</h1>
 
-		<div class=w3-padding-16>
-		<div class="w3-grey w3-block w3-left-align w3-padding-small"><b>GET:</b> http://unhashit.com/HashReversing/JSON/{algorithm}/digest?value={value}</div>
-		<div class="w3-row w3-border">
-			<h5 class="w3-text-teal"><b>Description</b></h5>
-			<p>Returns hash value calculated with specified algorithm</p>
+<div class=w3-padding-16>
+<div class="w3-grey w3-block w3-left-align w3-padding-small"><b>GET:</b> http://unhashit.com/HashReversing/JSON/{algorithm}/digest?value={value}</div>
+<div class="w3-row w3-border">
+	<h5 class="w3-text-teal"><b>Description</b></h5>
+	<p>Returns hash value calculated with specified algorithm</p>
 
-			<h5 class="w3-text-teal"><b>URL</b></h5>
-			<p class="w3-code w3-padding-16">http://unhashit.com/HashReversing/JSON/{algoithm}/digest</p>
+	<h5 class="w3-text-teal"><b>URL</b></h5>
+	<p class="w3-code w3-padding-16">http://unhashit.com/HashReversing/JSON/{algoithm}/digest</p>
 
-			<h5 class="w3-text-teal"><b>Parameters</b></h5>
-			<ul>
-				<li><b>value</b> - value to be processed with hash function</li>
-			</ul>
+	<h5 class="w3-text-teal"><b>Parameters</b></h5>
+	<ul>
+		<li><b>value</b> - value to be processed with hash function</li>
+	</ul>
 
-			<h5 class="w3-text-teal"><b>Supported algorithms</b></h5>
-			<ul>
-				<li ng-repeat="item in hash_types">{{item}}</li>
-			</ul>
+	<h5 class="w3-text-teal"><b>Supported algorithms</b></h5>
+	<ul>
+		<li ng-repeat="item in hash_types">{{item}}</li>
+	</ul>
 
-			<h5 class="w3-text-teal"><b>Example curl request</b></h5>
-			<p class="w3-code w3-padding-16">curl "http://unhashit.com/HashReversing/JSON/MD5/digest?value=HelloWorld"</p>
+	<h5 class="w3-text-teal"><b>Example curl request</b></h5>
+	<p class="w3-code w3-padding-16">curl "http://unhashit.com/HashReversing/JSON/MD5/digest?value=HelloWorld"</p>
 
-			<h5 class="w3-text-teal"><b>Example response</b></h5>
-			<p class="w3-code w3-padding-16">
-					{<br>
-					"digest":"68e109f0f40ca72a15e05cc22786f8e6",<br>
-					"value":"HelloWorld",<br>
-					"algorithm":"MD5"<br>
-					}
-			</p>
-		</div>
-		</div>
+	<h5 class="w3-text-teal"><b>Example response</b></h5>
+	<p class="w3-code w3-padding-16">
+			{<br>
+			"digest":"68e109f0f40ca72a15e05cc22786f8e6",<br>
+			"value":"HelloWorld",<br>
+			"algorithm":"MD5"<br>
+			}
+	</p>
+</div>
+</div>
 
-		<div class=w3-padding-16>
-		<div class="w3-grey w3-block w3-left-align w3-padding-small"><b>GET:</b> http://unhashit.com/HashReversing/JSON/{algorithm}/value?digest={value}</div>
-		<div class="w3-row w3-border">
-			<h5 class="w3-text-teal"><b>Description</b></h5>
-			<p>Returns a value which if passed to hash function will return specified hash value or NULL if value was not found</p>
+<div class=w3-padding-16>
+<div class="w3-grey w3-block w3-left-align w3-padding-small"><b>GET:</b> http://unhashit.com/HashReversing/JSON/{algorithm}/value?digest={value}</div>
+<div class="w3-row w3-border">
+	<h5 class="w3-text-teal"><b>Description</b></h5>
+	<p>Returns a value which if passed to hash function will return specified hash value or NULL if value was not found</p>
 
-			<h5 class="w3-text-teal"><b>URL</b></h5>
-			<p class="w3-code w3-padding-16">http://unhashit.com/HashReversing/JSON/{algoithm}/value</p>
+	<h5 class="w3-text-teal"><b>URL</b></h5>
+	<p class="w3-code w3-padding-16">http://unhashit.com/HashReversing/JSON/{algoithm}/value</p>
 
-			<h5 class="w3-text-teal"><b>Parameters</b></h5>
-			<ul>
-				<li><b>digest</b> - hash value to find</li>
-			</ul>
+	<h5 class="w3-text-teal"><b>Parameters</b></h5>
+	<ul>
+		<li><b>digest</b> - hash value to find</li>
+	</ul>
 
-			<h5 class="w3-text-teal"><b>Supported algorithms</b></h5>
-			<ul>
-				<li ng-repeat="item in hash_types">{{item}}</li>
-			</ul>
+	<h5 class="w3-text-teal"><b>Supported algorithms</b></h5>
+	<ul>
+		<li ng-repeat="item in hash_types">{{item}}</li>
+	</ul>
 
-			<h5 class="w3-text-teal"><b>Example curl request</b></h5>
-			<p class="w3-code w3-padding-16">curl "http://unhashit.com/HashReversing/JSON/MD5/value?digest=68e109f0f40ca72a15e05cc22786f8e6"</p>
+	<h5 class="w3-text-teal"><b>Example curl request</b></h5>
+	<p class="w3-code w3-padding-16">curl "http://unhashit.com/HashReversing/JSON/MD5/value?digest=68e109f0f40ca72a15e05cc22786f8e6"</p>
 
-			<h5 class="w3-text-teal"><b>Example response</b></h5>
-			<p class="w3-code w3-padding-16">
-				{<br>
-				"digest":"68e109f0f40ca72a15e05cc22786f8e6",<br>
-				"value":"HelloWorld",<br>
-				"algorithm":"MD5"<br>
-				}
-			</p>
-		</div>
-		</div>
-	</div>
-
-	<div class="w3-third w3-container">
-		<p class="w3-border w3-padding-large w3-padding-64 w3-center">AD</p>
-	</div>
+	<h5 class="w3-text-teal"><b>Example response</b></h5>
+	<p class="w3-code w3-padding-16">
+		{<br>
+		"digest":"68e109f0f40ca72a15e05cc22786f8e6",<br>
+		"value":"HelloWorld",<br>
+		"algorithm":"MD5"<br>
+		}
+	</p>
 </div>
 

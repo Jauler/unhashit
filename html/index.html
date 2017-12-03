@@ -63,7 +63,24 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
 <div class="w3-main" style="margin-left:250px">
-  <div ng-view></div>
+
+<div class="w3-row w3-padding-64">
+  <div class="w3-twothird w3-container">
+    <div ng-view></div>
+  </div>
+
+  <div class="w3-third w3-container">
+    <div class="w3-padding-large w3-padding-64 w3-center">
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <input type="hidden" name="cmd" value="_s-xclick">
+    <input type="hidden" name="hosted_button_id" value="6SB8F5CCVGZWW">
+    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    </form>
+    </div>
+  </div>
+</div>
+
 
   <div class="w3-bottom">
   <footer id="myFooter">
