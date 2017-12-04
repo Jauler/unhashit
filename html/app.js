@@ -32,6 +32,10 @@ app.controller('HashReversingController', function($scope, $timeout, $http, $rou
 	$scope.$on('$routeChangeStart', function($event, next, current) {
 		delete $scope.inputs.hash;
 		delete $scope.inputs.value;
+		$scope.inputs.hash_error = null;
+		$scope.inputs.value_error = null;
+		$scope.inputs.value_warning = null;
+		$scope.inputs.registration_status = null;
 	});
 
 	$scope.on_value_change = function(new_value) {
@@ -51,11 +55,12 @@ app.controller('HashReversingController', function($scope, $timeout, $http, $rou
 				delete $scope.inputs.hash_error;
 				delete $scope.inputs.value_warning;
 				$scope.inputs.hash = response.data.digest;
+				$scope.inputs.registration_status = null;
 			},
 			function (response) {
 				delete $scope.inputs.hash;
 				delete $scope.inputs.value_warning;
-
+				$scope.inputs.registration_status = null;
 				$scope.inputs.value_error = response.data.error;
 			}
 			)}, 500);
@@ -82,10 +87,12 @@ app.controller('HashReversingController', function($scope, $timeout, $http, $rou
 				{
 					$scope.inputs.value_warning = "Value not found";
 					$scope.inputs.value = "Value not found for specified hash";
+					$scope.inputs.registration_status = null;
 				}
 				else
 				{
 					$scope.inputs.value = response.data.value;
+					$scope.inputs.registration_status = null;
 				}
 
 			},
@@ -93,6 +100,7 @@ app.controller('HashReversingController', function($scope, $timeout, $http, $rou
 				delete $scope.inputs.value;
 				delete $scope.inputs.value_warning;
 				$scope.inputs.hash_error = response.data.error;
+				$scope.inputs.registration_status = null;
 			}
 			)}, 500);
 
