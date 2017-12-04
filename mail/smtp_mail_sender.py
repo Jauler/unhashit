@@ -11,8 +11,6 @@ class SMTPMailSender:
     def SendMail(self, recipient, subject, message):
         server = smtplib.SMTP(self.server);
         server.set_debuglevel(1)
-        print(self.username)
-        print(self.password)
         server.login(self.username, self.password);
         server.sendmail('no-reply@unhashit.com', [recipient], "Subject: " + subject + "\n\n" + message);
 

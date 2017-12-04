@@ -14,6 +14,7 @@
 
 import webapp2
 import webapp2_extras
+import os
 
 from handlers.digests_handler import DigestsHandler
 from handlers.values_handler import ValuesHandler
@@ -28,9 +29,17 @@ from validators.sha1 import SHA1Validator
 from validators.md5 import MD5Validator
 from storages.google_cloud_storage_hash_storage import GoogleCloudStorageHashStorage
 from storages.mysql_db import MySQLDB
-from mail.smtp_mail_sender import SMTPMailSender
 from views.JSON_view import JSONView
 from views.XML_view import XMLView
+
+
+
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine/'):
+    from mail.GAE_mail_sender import GAEMailSender
+    MailSender = GAEMailSender
+else:
+    from mail.smtp_mail_sender import SMTPMailSender
+    MailSender = SMTPMailSender
 
 config = {
     "SHA256_digester" : SHA256Digester(),
@@ -50,7 +59,7 @@ config = {
     "SHA1_validator" : SHA1Validator(),
 
     "registrations_db" : MySQLDB(),
-    "mail_sender" : SMTPMailSender(),
+    "mail_sender" : MailSender(),
     "found hash_message_subject" : "Your hash value has been found.",
     "found_hash_message_template" : "We are writing to inform you that value for @@ALGORITHM_PLACEHOLDER@@ hash @@DIGEST_PLACEHOLDER@@ hash been found. The value is \"@@VALUE_PLACEHOLDER@@\" (without quites)"
 };
