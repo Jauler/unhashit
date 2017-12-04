@@ -17,6 +17,7 @@ import webapp2_extras
 
 from handlers.digests_handler import DigestsHandler
 from handlers.values_handler import ValuesHandler
+from handlers.notification_handler import NotificationHandler
 from digesters.sha256 import SHA256Digester
 from digesters.sha512 import SHA512Digester
 from digesters.sha1 import SHA1Digester
@@ -26,6 +27,8 @@ from validators.sha512 import SHA512Validator
 from validators.sha1 import SHA1Validator
 from validators.md5 import MD5Validator
 from storages.google_cloud_storage_hash_storage import GoogleCloudStorageHashStorage
+from storages.mysql_db import MySQLDB
+from mail.smtp_mail_sender import SMTPMailSender
 from views.JSON_view import JSONView
 from views.XML_view import XMLView
 
@@ -45,12 +48,18 @@ config = {
     "SHA1_digester" : SHA1Digester(),
     "SHA1_storage" : GoogleCloudStorageHashStorage("sha1_digests", SHA1Validator()),
     "SHA1_validator" : SHA1Validator(),
+
+    "registrations_db" : MySQLDB(),
+    "mail_sender" : SMTPMailSender(),
+    "found hash_message_subject" : "Your hash value has been found.",
+    "found_hash_message_template" : "We are writing to inform you that value for @@ALGORITHM_PLACEHOLDER@@ hash @@DIGEST_PLACEHOLDER@@ hash been found. The value is \"@@VALUE_PLACEHOLDER@@\" (without quites)"
 };
 
 app = webapp2.WSGIApplication(
     [
         webapp2.Route('/HashReversing/JSON/<algorithm>/digest', DigestsHandler, defaults = {"view" : JSONView()}, name='digest'),
         webapp2.Route('/HashReversing/JSON/<algorithm>/value', ValuesHandler, defaults = {"view" : JSONView()}, name='value'),
+        webapp2.Route('/HashReversing/JSON/<algorithm>/notification', NotificationHandler, defaults = {"view" : JSONView()}, name='digest'),
         webapp2.Route('/HashReversing/XML/<algorithm>/digest', DigestsHandler, defaults = {"view" : XMLView()}, name='digest'),
         webapp2.Route('/HashReversing/XML/<algorithm>/value', ValuesHandler, defaults = {"view" : XMLView()}, name='value'),
     ], config=config)

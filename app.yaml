@@ -2,9 +2,14 @@ runtime: python27
 api_version: 1
 threadsafe: yes
 
+includes:
+- credentials.yaml
+
 libraries:
 - name: ssl
   version: latest
+- name: MySQLdb
+  version: "latest"
 
 handlers:
 - url: /HashReversing/.*

@@ -3,6 +3,22 @@ var API_base = "HashReversing/JSON";
 var hash_types = ["MD5", "SHA1", "SHA256", "SHA512"];
 var info_pages = ["About", "API", "Contacts"];
 
+
+function GetCurrentHashType(route)
+{
+	var current_hash_type = hash_types[0];
+	for (var idx in hash_types)
+	{
+		if (route.current.templateUrl.indexOf(hash_types[idx]) !== -1)
+		{
+			current_hash_type = hash_types[idx];
+			break;
+		}
+	}
+	return current_hash_type;
+}
+
+
 var app = angular.module('HashReversing', ["ngRoute"]);
 app.controller('HashReversingController', function($scope, $timeout, $http, $route) {
 	$scope.hash_types = hash_types;
@@ -11,6 +27,7 @@ app.controller('HashReversingController', function($scope, $timeout, $http, $rou
 	$scope.inputs.hash_error = null;
 	$scope.inputs.value_error = null;
 	$scope.inputs.value_warning = null;
+	$scope.inputs.registration_status = null;
 
 	$scope.$on('$routeChangeStart', function($event, next, current) {
 		delete $scope.inputs.hash;
@@ -24,15 +41,7 @@ app.controller('HashReversingController', function($scope, $timeout, $http, $rou
 		if (new_value.length == 0)
 			return;
 
-		var current_hash_type = hash_types[0];
-		for (var idx in hash_types)
-		{
-			if ($route.current.templateUrl.indexOf(hash_types[idx]) !== -1)
-			{
-				current_hash_type = hash_types[idx];
-				break;
-			}
-		}
+		var current_hash_type = GetCurrentHashType($route);
 
 		$scope.update_delayer = $timeout(function() {
 			$http.get(API_base + "/" + current_hash_type + "/digest", {
@@ -59,15 +68,7 @@ app.controller('HashReversingController', function($scope, $timeout, $http, $rou
 		if (new_hash.length == 0)
 			return;
 
-		var current_hash_type = hash_types[0];
-		for (var idx in hash_types)
-		{
-			if ($route.current.templateUrl.indexOf(hash_types[idx]) !== -1)
-			{
-				current_hash_type = hash_types[idx];
-				break;
-			}
-		}
+		var current_hash_type = GetCurrentHashType($route);
 
 		$scope.update_delayer = $timeout(function() {
 			$http.get(API_base + "/" + current_hash_type + "/value", {
@@ -94,6 +95,18 @@ app.controller('HashReversingController', function($scope, $timeout, $http, $rou
 				$scope.inputs.hash_error = response.data.error;
 			}
 			)}, 500);
+
+	}
+
+	$scope.register_notify = function(email) {
+		var current_hash_type = GetCurrentHashType($route);
+		$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+		$http.post(API_base + "/" + current_hash_type + "/notification",
+				"email=" + escape($scope.inputs.notify_email) +
+				"&algorithm=" + escape(current_hash_type) +
+				"&digest=" + escape($scope.inputs.hash)).then(function(response) {
+			$scope.inputs.registration_status = "ok";
+		});
 	}
 });
 
